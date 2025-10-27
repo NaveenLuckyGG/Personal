@@ -1,0 +1,185 @@
+
+Java 8 Stream API - 16 Common Interview Problems with Solutions
+===============================================================
+
+1. Find duplicate elements in a list
+------------------------------------
+List<Integer> list = Arrays.asList(1, 2, 3, 4, 2, 3, 5);
+Set<Integer> seen = new HashSet<>();
+Set<Integer> duplicates = list.stream()
+    .filter(n -> !seen.add(n))
+    .collect(Collectors.toSet());
+System.out.println(duplicates); // Output: [2, 3]
+
+
+2. Find the first non-repeated character in a string
+----------------------------------------------------
+String input = "swiss";
+Character result = input.chars()
+    .mapToObj(c -> (char) c)
+    .collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting()))
+    .entrySet().stream()
+    .filter(e -> e.getValue() == 1)
+    .map(Map.Entry::getKey)
+    .findFirst().orElse(null);
+System.out.println(result); // Output: w
+
+
+3. Find the frequency of each element
+-------------------------------------
+List<String> list = Arrays.asList("apple", "banana", "apple", "orange", "banana");
+Map<String, Long> frequency = list.stream()
+    .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+System.out.println(frequency); // Output: {orange=1, banana=2, apple=2}
+
+
+4. Sort a list of strings in reverse order
+------------------------------------------
+List<String> names = Arrays.asList("John", "Alice", "Bob");
+List<String> sorted = names.stream()
+    .sorted(Comparator.reverseOrder())
+    .collect(Collectors.toList());
+System.out.println(sorted); // Output: [John, Bob, Alice]
+
+
+5. Convert a list of strings to uppercase
+-----------------------------------------
+List<String> names = Arrays.asList("john", "alice");
+List<String> upper = names.stream()
+    .map(String::toUpperCase)
+    .collect(Collectors.toList());
+System.out.println(upper); // Output: [JOHN, ALICE]
+
+
+6. Get max and min element from a list
+--------------------------------------
+List<Integer> numbers = Arrays.asList(2, 7, 1, 9, 4);
+int max = numbers.stream().max(Integer::compare).orElseThrow();
+int min = numbers.stream().min(Integer::compare).orElseThrow();
+System.out.println("Max: " + max + ", Min: " + min); // Output: Max: 9, Min: 1
+
+
+7. Group employees by department
+--------------------------------
+class Employee {
+    String name;
+    String department;
+    Employee(String name, String department) {
+        this.name = name;
+        this.department = department;
+    }
+    public String getDepartment() { return department; }
+    public String toString() { return name; }
+}
+List<Employee> employees = Arrays.asList(
+    new Employee("John", "HR"),
+    new Employee("Alice", "IT"),
+    new Employee("Bob", "HR")
+);
+Map<String, List<Employee>> grouped = employees.stream()
+    .collect(Collectors.groupingBy(Employee::getDepartment));
+System.out.println(grouped); // Output: {HR=[John, Bob], IT=[Alice]}
+
+
+8. Count even and odd numbers in a list
+---------------------------------------
+List<Integer> nums = Arrays.asList(1, 2, 3, 4, 5, 6);
+Map<String, Long> count = nums.stream()
+    .collect(Collectors.partitioningBy(n -> n % 2 == 0, Collectors.counting()));
+System.out.println("Even: " + count.get(true));  // Even: 3
+System.out.println("Odd: " + count.get(false)); // Odd: 3
+
+
+9. Find the longest string in a list
+------------------------------------
+List<String> words = Arrays.asList("apple", "banana", "grapefruit");
+String longest = words.stream()
+    .max(Comparator.comparing(String::length))
+    .orElse(null);
+System.out.println(longest); // Output: grapefruit
+
+
+10. Sum of all digits in a number
+---------------------------------
+int num = 12345;
+int sum = String.valueOf(num).chars()
+    .map(c -> c - '0')
+    .sum();
+System.out.println(sum); // Output: 15
+
+
+11. Sort List of Employees by Salary (Descending)
+-------------------------------------------------
+class Employee {
+    String name;
+    double salary;
+    Employee(String name, double salary) {
+        this.name = name;
+        this.salary = salary;
+    }
+    public double getSalary() { return salary; }
+    public String toString() { return name + " - " + salary; }
+}
+List<Employee> employees = Arrays.asList(
+    new Employee("John", 60000),
+    new Employee("Alice", 75000),
+    new Employee("Bob", 50000)
+);
+List<Employee> sorted = employees.stream()
+    .sorted(Comparator.comparing(Employee::getSalary).reversed())
+    .collect(Collectors.toList());
+System.out.println(sorted); // Output: [Alice - 75000.0, John - 60000.0, Bob - 50000.0]
+
+
+12. Convert List to Map (Name -> Length)
+----------------------------------------
+List<String> names = Arrays.asList("John", "Alice", "Bob");
+Map<String, Integer> nameLengthMap = names.stream()
+    .collect(Collectors.toMap(Function.identity(), String::length));
+System.out.println(nameLengthMap); // Output: {John=4, Alice=5, Bob=3}
+
+
+13. Find Maximum Element
+------------------------
+List<Integer> nums = Arrays.asList(10, 25, 30, 5, 90, 12);
+int max = nums.stream().max(Integer::compare).orElseThrow();
+System.out.println("Maximum number: " + max); // Output: 90
+
+
+14. Join Strings with Delimiter
+-------------------------------
+List<String> items = Arrays.asList("Pen", "Book", "Notebook");
+String joined = items.stream().collect(Collectors.joining(", "));
+System.out.println(joined); // Output: Pen, Book, Notebook
+
+
+15. Remove Null and Empty Strings
+---------------------------------
+List<String> rawList = Arrays.asList("Java", null, " ", "Streams", "", "API");
+List<String> cleaned = rawList.stream()
+    .filter(s -> s != null && !s.trim().isEmpty())
+    .collect(Collectors.toList());
+System.out.println(cleaned); // Output: [Java, Streams, API]
+
+
+16. Group Students by Grade
+---------------------------
+class Student {
+    String name;
+    String grade;
+    Student(String name, String grade) {
+        this.name = name;
+        this.grade = grade;
+    }
+    public String getGrade() { return grade; }
+    public String toString() { return name; }
+}
+List<Student> students = Arrays.asList(
+    new Student("Alice", "A"),
+    new Student("Bob", "B"),
+    new Student("Charlie", "A"),
+    new Student("David", "C")
+);
+Map<String, List<Student>> groupedByGrade = students.stream()
+    .collect(Collectors.groupingBy(Student::getGrade));
+System.out.println(groupedByGrade); // Output: {A=[Alice, Charlie], B=[Bob], C=[David]}

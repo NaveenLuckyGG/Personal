@@ -1,0 +1,24 @@
+how to secure docker containers?
+communication between multiple docker containers?
+how to take up the backup of another container?
+ 
+ 
+kubctl purpose?
+what are labels and selectors?
+how can manage the sensitive info?
+
+How to create Docker image ?
+Ans) # Use a base image
+	FROM openjdk:17-jdk-slim
+ 
+	# Set working directory
+	WORKDIR /app
+ 
+	# Copy files
+	COPY . .
+ 
+	# Run build commands
+	RUN ./gradlew build
+ 
+	# Define entrypoint
+	CMD ["java", "-jar", "build/libs/myapp.jar"]

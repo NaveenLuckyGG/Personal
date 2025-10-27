@@ -1,0 +1,50 @@
+Penske interview round 1
+==================
+ 
+tell me about your previous role in your prev proj/company and explain in detail
+end to end flow of the spring boot application
+tell some spring boot annotations
+@transaction in spring boot
+how do you perform security in springboot 
+explain about JWT security in detail
+how do you handle when there are multiple tables in database and you need interaction/ connection with them in hibernate
+java 8 features
+explain in detail about kafka and event publishing
+in-detail questions about my previous role - questions regarding sonarqube and veracode
+coding: write a program to print the first non-repeating character
+coding: sort the string according to their length
+how do you handles exceptions in spring boot 
+how do you perform testing and do you know how to write testcases and inject mock
+are you comfortable with sql and rate yourself
+ 
+Penske Interview Questions
+-------------------------------
+1. brief self introduction and Pevious project roles and responsibilities
+2. how CI/CD pipeline works
+a) How does microservices architecture support CD/CD
+ 
+3. complete flow structure of Springboot Application that how exactly it runs , where do you test the microservices endpoints ,with example explain it
+4. All springboot Annotations
+5. Explain java 8 features
+6. Difference between collections and Streams
+7. explain circuit breaker
+8. how do you ensure the thread safety in streams
+9. how to change the server in springboot application and what is default port ?
+10 while springboot application is run in 8080 then you have change the port without stoping the application then what is comment you give in the comment prompt
+11.What are Spring Boot Actuator and its endpoints?
+12. How do you deploy a Spring Boot application to production?
+13. end to end flow of deployment of application in docker or kubernates
+14.How does Spring Data JPA implement the Repository
+15. how it Springboot application communicates with database
+16.What is Spring Data JPA Specification
+ 
+programs :
+----------
+ 
+1. write a program to print even-numbers and multiply by 2
+2. write a program to print the first Non-repeated character
+i/p string s = "aabbcdd" o/p = c
+3. write a program to find longest string in the given string
+i/p string s = "Bangalore ", "Chennai", "delhi", "Mumbai";
+o/p = Bangalore
+ 

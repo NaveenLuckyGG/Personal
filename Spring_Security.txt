@@ -1,0 +1,58 @@
+What is Spring security?
+what is authentication and authorization?
+what is securityfilterchain?
+what is AuthenticationBuilderManager?
+what is Security context?
+What is @Preauthowired and @Secure?
+what is JWT?
+What are the components in JWT?
+where credentials are stored? ans:payload
+what is password encoder?
+what is maven?
+how to create POM file?
+what are the repositories you aware? //local, remote, central
+
+Spring Security Flow 
+------------------------
+1. Request Entry Point
+A client sends an HTTP request (e.g., GET /api/users) to your application.
+The FilterChainProxy (provided by Spring Security) intercepts every request before it reaches your controllers.
+This proxy delegates the request to a series of security filters.
+2. Filter Chain Execution
+Spring Security uses a predefined chain of filters. Key filters include:
+SecurityContextPersistenceFilter
+Loads the SecurityContext (authentication details) from the session or creates a new one.
+UsernamePasswordAuthenticationFilter (or JWT filter / custom filter)
+Handles authentication (e.g., checks username/password or parses JWT token).
+BasicAuthenticationFilter or BearerTokenAuthenticationFilter
+Handles HTTP Basic Auth or Bearer tokens if configured.
+ExceptionTranslationFilter
+Converts security exceptions (e.g., AccessDeniedException) into proper HTTP responses (401/403).
+FilterSecurityInterceptor
+Makes authorization decisions using configured access rules (e.g., @PreAuthorize, antMatchers, hasRole).
+3. Authentication Manager
+If authentication is required, the request passes to an AuthenticationManager.
+The AuthenticationManager delegates to one or more AuthenticationProvider implementations (e.g., DaoAuthenticationProvider for username/password).
+On success, it creates an Authentication object containing user details and authorities.
+4. Security Context Population
+The successful Authentication object is stored in the SecurityContext.
+The SecurityContextHolder makes it accessible throughout the request lifecycle (e.g., in controllers via SecurityContextHolder.getContext().getAuthentication()).
+5. Authorization
+When reaching the controller or method level:
+Method-level security (@PreAuthorize("hasRole('ADMIN')")) or
+URL-based security (in HttpSecurity)
+is applied by FilterSecurityInterceptor or AOP-based checks.
+If authorization fails → 403 Forbidden.
+6. Controller Execution
+If both authentication and authorization succeed, the request proceeds to the controller.
+The controller executes and returns a response.
+7. Response Handling
+After the controller responds, the SecurityContextPersistenceFilter saves the SecurityContext back to the session (if session management is enabled).
+The response is then sent back to the client.
+Simplified Flow Diagram
+[Client Request]      |
+      v [FilterChainProxy] -- intercepts all requests      |
+      v [Authentication Filters] --> [AuthenticationManager] --> [AuthenticationProvider]      |                            |
+      |                     [Authentication Success/Failure]v [SecurityContextHolder populated with Authentication]      |
+      v [Authorization Checks (FilterSecurityInterceptor / @PreAuthorize)]      |
+      v [Controller] --> [Response]

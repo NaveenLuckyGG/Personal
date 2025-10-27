@@ -1,0 +1,11 @@
+What is sonarcube
+What is features
+What is sonarcube Scanner
+diff b/w bug and verlnerbulities
+Which langueas sonarcube
+how do you secure sonarcube
+how can we integrate sonarcube in Jenkins
+how can we analyse pull request in sonarcube
+how can we store credentials in Jenkins
+what is Jenkins
+How many ways to install jenkins

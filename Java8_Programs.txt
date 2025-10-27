@@ -1,0 +1,331 @@
+Java8 Programs :
+================
+1.String Assending and Decending
+--------------------------------
+	String str = "Welcome to java";
+		System.out.println("This is Assending Order : ");
+		Arrays.asList(str.split(" ")).stream().sorted().forEach(System.out::println);
+		
+		System.out.println("This is Dessending Order : ");
+		Arrays.asList(str.split(" ")).stream().sorted(Comparator.reverseOrder()).forEach(System.out::println);
+		
+		Output : This is Assending Order : 
+					Welcome
+					java
+					to
+				This is Dessending Order : 
+					to
+					java
+					Welcome
+	
+2.FirstNonRepetableCharacter
+----------------------------
+	String str="naavveeng";		
+		String FNRC = Arrays.stream(str.split(""))
+				.collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting()))
+				.entrySet().stream().filter(x -> x.getValue() == 1).findFirst().get().getKey();
+		System.out.println("FirstNonRepetableChar :" + FNRC);
+		
+		Output : g
+		----------
+
+3.Lambda Expression
+-------------------
+	@FunctionalInterface
+	public interface Functional {	
+	double calculateAverage(double a, double b, double c);	
+	}
+	
+	public class LambdaExample1 {
+	public static void main(String[] args) {
+		Functional myLambda = (a, b, c) -> {
+			return (a + b + c) / 3.0;
+		};
+		double average = myLambda.calculateAverage(10.0, 20.0, 30.0);
+		System.out.println("Average: " + average);
+	}
+}
+	Output : Average: 20.0
+	
+4.LongestString
+---------------
+	String[] strArray= {"Java","Python","Oracle","SpringBoot","Microservice"};
+		String longestString=Arrays.stream(strArray).reduce((word1,word2)->word1.length()>word2.length()?word1:word2).get();
+		System.out.println("Longest String : "+longestString);
+		
+		Output :Microservice
+		--------------------
+		
+5.ArrayAndHashMapFilter
+-----------------------
+	String[] strArray= {"apple","banana","orange","kiwi","melon"};
+		
+		HashMap<String, Integer> map = new HashMap<>();
+		map.put("apple", 10);
+		map.put("banana", 20);
+		map.put("orange", 30);
+		map.put("kiwi", 40);
+		map.put("melon", 50);
+		Arrays.stream(strArray).filter(map::containsKey).forEach(System.out::println);
+		
+			Output :apple
+					banana
+					orange
+					kiwi
+					melon
+					
+6.Character_Filter
+------------------
+	List<String> strList = Arrays.asList("baba","rjau","naveen","rahul");		
+		List<String> result = strList.stream().filter(x->x.contains("r")).collect(Collectors.toList());
+		System.out.println(result);
+		
+		Output :[rjau, rahul]
+		
+7.Charaters_Print
+--------------
+	List<String> list = Arrays.asList("1","a","2","b","3","c","4","d","5");
+		list.stream().filter(str->!Character.isDigit(str.charAt(0))).forEach(System.out::print);
+		list.stream().filter(str->Character.isDigit(str.charAt(0))).forEach(System.out::println);
+		
+		Output : abcd
+		Output : 12345
+		
+8.Employee salary
+-----------------
+public class EmployeeSal {
+	public static void main(String[] args) {
+		List<Employee> employees = Arrays.asList(
+			    new Employee("John", 60000),
+			    new Employee("Alice", 75000),
+			    new Employee("Bob", 50000)
+			);
+		    //Output: [Alice - 75000.0, John - 60000.0, Bob - 50000.0]
+			List<Employee> sorted = employees.stream()
+			    .sorted(Comparator.comparing(Employee::getSalary).reversed())
+			    .collect(Collectors.toList());
+			System.out.println(sorted); 
+			
+			//More than 50000 salary printed
+			employees.stream().filter(s->s.getSalary()>50000).forEach(System.out::println);
+				
+			//Comparison of two objects
+			Employee e1 = new Employee("Sai", 50000);
+			Employee e2 = new Employee("Sai", 50000);
+			System.out.println(e1.equals(e2));
+			
+			//Set is not allowed duplicat
+			HashSet<Employee> set=new HashSet<>();
+				set.add(e1);
+				set.add(e2);
+				System.out.println(set.size());
+	}
+}
+		Output :[Employee [name=Alice, salary=75000.0], Employee [name=John, salary=60000.0], Employee [name=Bob, salary=50000.0]]
+				Employee [name=John, salary=60000.0]
+				Employee [name=Alice, salary=75000.0]
+				true
+				1
+				
+9.FindDuplicateElements
+-----------------------
+	List<Integer> list = Arrays.asList(1, 2, 3, 4, 2, 3, 5);
+		Set<Integer> set = new HashSet<>();
+		Set<Integer> duplicates = list.stream().filter(n ->!set.add(n)).collect(Collectors.toSet());
+		System.out.println(duplicates);
+		
+		Output : [2, 3]
+		---------------
+		
+10.IntegerRotation
+------------------
+	public static int rotateInteger(int number, int rotation) {
+		String numberStr = String.valueOf(number);
+		int rotationIndex = rotation % numberStr.length();
+		String rotatedStr = numberStr.substring(rotationIndex) + numberStr.substring(0, rotationIndex);
+
+		return Integer.parseInt(rotatedStr);
+	}
+
+	public static void main(String[] args) {
+		int number = 123456;
+		int rotation = 2;
+		int rotatationNumber = rotateInteger(number, rotation);
+		System.out.println("Rotated Number : "+rotatationNumber);
+
+	}
+	
+	Output : 345612
+	
+11.MaxMin
+---------
+	List<Integer> numbers = Arrays.asList(2, 7, 1, 9, 4);
+		int max = numbers.stream().max(Integer::compare).orElseThrow();
+		int min = numbers.stream().min(Integer::compare).orElseThrow();
+		System.out.println("Max: " + max + ", Min: " + min);
+		
+		Output : Max: 9, Min: 1
+		-------------------------
+		
+12.Second_Hight_Number
+----------------------
+	int[] number= {1,2,3,4,5,6,7,8,9};
+		Integer secondHight = Arrays.stream(number).boxed().sorted(Comparator.reverseOrder()).skip(1).findFirst().get();
+		System.out.println("Second Hight : "+secondHight);
+		
+		Output : 8
+		
+13.SortSingleString
+-------------------
+	String str="welcome";
+		IntStream chars = str.chars();
+		String assending = chars.sorted()
+				.mapToObj(c->String.valueOf((char)c))
+				.collect(Collectors.joining());		
+		System.out.println("Sort String assending : "+assending);
+		
+		String str1="welcome";
+		IntStream chars1 = str1.chars();
+		String decending = chars1.boxed()
+				.sorted((c1,c2)->c2.compareTo(c1))
+				.map(c->String.valueOf((char)c.intValue()))
+				.collect(Collectors.joining());		
+		System.out.println("Sort String assending : "+decending);
+		
+		Output : assending : ceelmow , decending : womleec
+		
+14.Start_With_Perticular_Number
+-------------------------------
+	int[] number = { 1, 2, 21, 22, 33, 34, 43, 44 };
+	Arrays.stream(number).boxed().map(x -> String.valueOf(x)).filter(s -> s.startsWith("2")).forEach(System.out::println);
+	
+	Output : 2 21 22
+	
+15.String_Characters_Count
+--------------------------
+	String str="Welcome";
+		Map<String, Long> map = Arrays.stream(str.split("")).collect(Collectors.groupingBy(Function.identity(),Collectors.counting()));
+		System.out.println(map);
+		
+		Output : {c=1, e=2, W=1, l=1, m=1, o=1}
+		
+16.StringArrayAssendingDecending
+--------------------------------
+	String str = "Welcome to java";
+		List<String> assending = Arrays.asList(str.split(" ")).stream().sorted().collect(Collectors.toList());
+		System.out.println("This is Assending Order : "+assending);
+		
+		System.out.println("This is Dessending Order : ");
+		Arrays.asList(str.split(" ")).stream().sorted(Comparator.reverseOrder()).forEach(System.out::println);
+		
+		Output : This is Assending Order : [Welcome, java, to]
+				 This is Dessending Order : to java welcome
+				 ---------------------------------------------
+				 
+17.StringCount
+--------------
+	List<String> list = Arrays.asList("apple", "banana", "apple", "orange", "banana");
+		Map<String, Long> frequency = list.stream()
+				.collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+		System.out.println(frequency);
+		
+		Output : {orange=1, banana=2, apple=2}
+		--------------------------------------
+		
+18.StringReverse
+----------------
+	String myStr = "welcome";
+		String reversed = myStr.chars()
+				.mapToObj(c -> String.valueOf((char) c))
+				.reduce(" ", (s1, s2) -> s2 + s1);
+		System.out.println("String Reverse : " + reversed);
+		
+		Output : emoclew 
+		
+19.StringUpperCase
+------------------
+	List<String> names = Arrays.asList("john", "alice");
+		List<String> upper = names.stream().map(String::toUpperCase).collect(Collectors.toList());
+		System.out.println(upper);
+		
+		Output : [JOHN, ALICE]
+		----------------------
+	
+
+		
+		
+import java.util.*;
+
+import java.util.stream.*;
+ 
+public class DuplicateChecks {
+ 
+    public boolean containsDuplicate(int[] nums) {
+
+        long uniqueCount = Arrays.stream(nums)
+
+                .distinct()
+
+                .count();  // count of unique elements
+
+        return uniqueCount != nums.length;  // if counts differ, there are duplicates
+
+    }
+ 
+    public static void main(String[] args) {
+
+        DuplicateChecks dc = new DuplicateChecks();
+ 
+        // Test Case 1
+
+        int[] test1 = {1, 2, 3, 1};
+
+        System.out.println("Input: nums = " + Arrays.toString(test1));
+
+        System.out.println("Output: " + dc.containsDuplicate(test1));  // true
+ 
+        // Test Case 2
+
+        int[] test2 = {1, 2, 3, 4};
+
+        System.out.println("Input: nums = " + Arrays.toString(test2));
+
+        System.out.println("Output: " + dc.containsDuplicate(test2));  // false
+
+    }
+
+}
+
+
+JAVA 1.8 (Intermediate) coding Questions ---------------------------------------------------------------------- 
+Q1) Given a list of integers, find out all the even numbers exist in the list using Stream functions? list=[2,34,678,3]
+Q2) Given a list of integers, find out all the numbers starting with 1 using Stream functions? list=[1,200,11,100]
+Q3)Print duplicate elements in a given integers list in java using Stream functions? list [1,2,3,3,2,0]
+Q4) Given the list of integers, find the first element of the list using Stream functions?
+Q5) Given a list of integers, find the total number of elements present in the list using Stream functions?
+Q6) Given a list of integers, find the maximum value element present in it using Stream functions? 
+Q7) Given a String, find the first non-repeated character in it using Stream functions? [A,A,B,C,D,D,E]
+Q8) Given a String, find the first repeated character in it using Stream functions? [A,A,B,C,D,D,E]
+Q9) Given a list of integers, sort all the values present in it using Stream functions?
+Q8) Given a String, find the first repeated character in it using Stream functions?
+Q9) Given a list of integers, sort all the values present in it using Stream functions?
+Q10) Given a list of integers, sort all the values present in it in descending order using Stream functions?
+Q11) Write a Java 8 program to concatenate two Streams?
+Q12 ) Write a Java 8 program to find the number of Strings in a list whose length is greater than 5?
+Q13) Explain StringJoiner Class in Java 8? How can we achieve joining multiple Strings
+using StringJoiner Class?
+Q14)Find the Word/number got repeated by using Stream api
+   input:2,3,34,,5,5,4,3,3,3
+   output:2-1,3-4,34-1,5-2,4-1
+15) Write a Java Lambda Expression to Create Thread
+16) How Lambda Expression and Functional Interfaces are Related?
+17)Given a list of Strings. Convert String to uppercase and Join them with coma (,) using Stream api
+List=["USA", "Japan", "France", "Germany", "Italy", "U.K.","Canada"]
+18)Given a list of Integer find square of all distinct numbers By using stream api
+  list=[9, 10, 3, 4, 7, 3, 4]
+19)Given a List of Integers find total count, min, max, sum, and the average for numbers by using Stream api
+input  :list=[2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
+output: count=10, sum=129, min=2, average=12.900000, max=29
+one
+
+ 

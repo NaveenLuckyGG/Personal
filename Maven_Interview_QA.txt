@@ -1,0 +1,114 @@
+﻿Maven Interview Questions & Answers
+
+1. What is Maven?
+Maven is a build automation and project management tool primarily for Java projects. It uses a POM (Project Object Model) file to manage project builds, dependencies, and documentation.
+
+2. What are the advantages of Maven?
+- Dependency management
+- Standard directory layout
+- Easy project build and deployment
+- Plugin support
+- Integration with CI/CD tools
+
+3. What is a POM file?
+The Project Object Model (POM) is an XML file (pom.xml) containing project details, configuration, dependencies, plugins, goals, and build profiles.
+
+4. What is the difference between Maven and Ant?
+Ant is procedural and requires scripting for tasks, while Maven is declarative and uses conventions. Maven focuses on dependency management, Ant doesn’t natively support it.
+
+5. What are Maven phases and goals?
+- Phases are stages in the build lifecycle (e.g., validate, compile, test, package, install, deploy).
+- Goals are tasks bound to phases (e.g., compiler:compile, surefire:test).
+
+6. What are Maven lifecycles?
+- Clean lifecycle (clean project)
+- Default lifecycle (build, test, package, install, deploy)
+- Site lifecycle (generate project documentation)
+
+7. What is the difference between `compile`, `install`, and `deploy` in Maven?
+- compile: Compiles the source code
+- install: Installs the built artifact into the local repository
+- deploy: Copies the artifact to the remote repository for sharing
+
+8. What is a Maven repository? Types?
+- Local: On developer machine (~/.m2)
+- Central: Provided by Maven community (search.maven.org)
+- Remote: Custom repositories hosted by organizations
+
+9. What is dependency management in Maven?
+Maven automatically downloads and manages libraries specified in pom.xml, avoiding manual JAR handling.
+
+10. What is the difference between dependencyManagement and dependencies?
+- dependencies: Declare dependencies directly
+- dependencyManagement: Define versions in parent POM for consistency across modules
+
+11. What is a transitive dependency in Maven?
+ Dependencies of your dependencies that Maven automatically includes.
+
+12. What are dependency scopes in Maven?
+- compile: Available in all classpaths (default)
+- provided: Available at compile time but provided by container (e.g., servlet API)
+- runtime: Required at runtime but not compile time
+- test: Available only during testing
+- system: Similar to provided, but explicitly referenced from local system
+
+13. What is the difference between SNAPSHOT and RELEASE versions?
+- SNAPSHOT: Mutable version under development
+- RELEASE: Immutable, stable version
+
+14. How do you exclude a transitive dependency?
+ Use the `<exclusions>` tag inside a `<dependency>` element in pom.xml.
+
+15. What is a Maven plugin?
+Plugins provide goals to perform tasks such as compiling code, packaging, running tests, deploying artifacts. Example: maven-compiler-plugin.
+
+16. How do you run tests with Maven?
+Maven uses Surefire plugin. Command: `mvn test`
+
+17. How do you skip tests in Maven?
+- Command line: `mvn install -DskipTests`
+- Full skip: `mvn install -Dmaven.test.skip=true`
+
+18. What is the difference between `mvn clean install` and `mvn install`?
+- mvn clean install: Deletes target folder before building and installing
+- mvn install: Builds and installs without cleaning target
+
+19. What is the difference between `mvn package` and `mvn install`?
+- package: Builds the project (JAR/WAR) in target directory
+- install: Builds and puts artifact in local repository (~/.m2)
+
+20. What is the role of the `settings.xml` file in Maven?
+Contains global configuration like repositories, proxies, pluginGroups, and credentials.
+
+21. What are Maven profiles?
+ Profiles allow custom build configurations (e.g., dev, test, prod). 
+Activated via command: `mvn install -PprofileName`
+
+22. What is effective POM in Maven?
+The merged POM containing parent POM, dependency management, and default configurations.
+
+23. How does Maven handle version conflicts?
+ Maven uses the “nearest definition” rule: dependency closest to the project in hierarchy is used.
+
+24. What is a multi-module project in Maven?
+ A project with multiple submodules managed by a parent POM.
+
+25. How do you check dependency tree in Maven?
+ Command: `mvn dependency:tree`
+
+26. What is the difference between parent and child POM?
+- Parent POM: Contains common configurations (dependencies, plugins)
+- Child POM: Inherits from parent, can override or add configurations
+
+27. How do you override plugin versions in Maven?
+By declaring the plugin and version in `<build><plugins>` section.
+
+28. What is the purpose of Maven Wrapper?
+To provide a self-contained and consistent way to build Maven projects without requiring a global Maven installation on the user's machine.
+
+29. How do you deploy a Maven artifact to Nexus/Artifactory?
+Configure distributionManagement in pom.xml and run `mvn deploy`.
+
+30. How do you integrate Maven with CI/CD?
+Configure Maven commands in Jenkins/TeamCity pipelines. Example: `mvn clean install` for build, `mvn deploy` for publishing artifacts.
+

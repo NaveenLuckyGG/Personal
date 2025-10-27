@@ -1,0 +1,137 @@
+Core Java Programs
+
+1.Reverse String
+----------------
+	String str="Welcome";
+	char[] ch=str.toCharArray();
+	String result=" ";
+	for(int i=str.length()-1; i>=0; i--){
+	result=result+ch[i];
+	}
+	System.out.println(result);
+	
+	Output=== emoclew
+	
+2.String Duplicate characters
+-----------------------------
+		String str = "Welcome";
+		int cnt = 0;
+		char[] ch = str.toCharArray();
+		for (int i = 0; i < str.length(); i++) {
+			for (int j = i + 1; j < str.length(); j++) {
+				if (ch[i] == ch[j]) {
+					System.out.println("DuplicateCharacters : " + ch[j]);
+					cnt++;
+					break;
+				}
+			}
+		}
+
+	}
+		
+		Output : e
+	
+3.String Character count
+----------------------------------
+		public static void main(String args[]) {
+		String str = "Welcome";
+		HashMap<Character, Integer> map = new HashMap<Character, Integer>();
+		char[] ch = str.toCharArray();
+		for (char ch2 : ch) {
+			if (map.containsKey(ch2)) {
+				map.put(ch2, map.get(ch2) + 1);
+			} else {
+				map.put(ch2, 1);
+			}
+		}
+		System.out.println("String Characters Count :" + map);
+	}
+	
+	Output : String Characters Count :{c=1, e=2, W=1, l=1, m=1, o=1}
+	
+4.String Duplicate Character count
+----------------------------------
+		String str = "Wellcome";
+		HashMap<Character, Integer> map = new HashMap();
+		for (char c : str.toCharArray()) {
+			map.put(c, map.getOrDefault(c, 0) + 1);
+		}
+		System.out.println("Duplicate character count :");
+		for (Map.Entry<Character, Integer> entry : map.entrySet()) {
+			if (entry.getValue() > 1) {
+				System.out.println(entry.getKey() + " : " + entry.getValue());
+			}
+		}
+		
+		Output : Duplicate character count : e : 2,l : 2
+		
+5.String Reverse Sentence
+--------------------------
+	public static String reverseWords(String sentence) {
+		String[] words = sentence.split(" ");
+		String result = "";
+		for (int i = words.length - 1; i >= 0; i--) {
+			result += words[i] + " ";
+		}
+		return result;
+	}
+
+	public static void main(String args[]) {
+		String s1 = "Welcome to Java";
+		System.out.println("Orginal String : " + s1);
+		System.out.println("Orginal String : " + reverseWords(s1));
+	}
+	
+	Output : Orginal String : Welcome to Java
+			 Orginal String : Java to Welcome
+	
+5.SubString
+-----------
+	String str = "abc";
+		for (int i = 0; i < str.length(); i++) {
+			for (int j = i + 1; j <= str.length(); j++) {
+				System.out.println(str.substring(i, j) + " ");
+			}
+		}
+		
+		Output : a ab abc b bc c
+	
+6.Permutations
+--------------
+	public static void main(String[] args) {
+		String str = "abc";
+		printPermutations(str, " ");
+	}
+
+	static void printPermutations(String str, String ans) {
+		if (str.length() == 0) {
+			System.out.print(ans);
+			return;
+		}
+
+		for (int i = 0; i < str.length(); i++) {
+			char ch = str.charAt(i);
+			String rest = str.substring(0, i) + str.substring(i + 1);
+			printPermutations(rest, ans + ch);
+		}
+	}
+	
+	Output: abc acb bac bca cab cba
+	
+7.Array MaxMin
+--------------
+	int a[]={1,2,3,4,5,6,7,8,9};
+		int min=a[0];
+		int max=a[0];
+		for(int i=0;i<a.length;i++){
+		if(a[i]>max){
+		max=a[i];
+		}
+		if(a[i]<min){
+		min=a[i];
+		}
+		}
+		System.out.println("max number : "+max);
+		System.out.println("min number : "+min);
+		
+		Output : max number : 9 min number : 1

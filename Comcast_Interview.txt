@@ -1,0 +1,31 @@
+First Round:
+-----------
+find the first repeated character in it using Stream functions-> String input = "Java programming Awesome";
+List<String> names = Arrays.asList("AA", "BB", "AA", "CC"); -> How to find only duplicate elements with its count from the String ArrayList in Java8?
+SQL query to create a table?
+UNION and UNION ALL in sql?
+SQL to combine 2 tables using Left outer join? 
+Rate yourself on Java Spring boot & Microservices?
+explain Java8 features? 
+Optional class purpose?
+Collections framewrok?
+ArrayList and LinkedList diff?
+Hashset and Treeset diff?
+Springboot annotations?
+@Primary and @Qualifier annotion diff?
+How microservices works?
+Explain Saga Design pattern?
+Explain Circuit breaker pattern?
+explain Application builder?
+Explain spring security flow?
+
+2nd Round:
+---------
+
+Roles and responsibilities in previous project?
+what are the tools and techstack you worked on?
+Explain Circuit breaker? 
+while communicating 2 services each other, One service down then how do you handle in that situation?
+Assume Employee class which is having id, name, department, salary and age. So WAP to get the employees whose salary greater than 50k?
+tell me a proud moment which you did in your previous project?
+How you identified in logs about memory outage?
