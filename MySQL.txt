@@ -45,22 +45,66 @@ SELECT empId, name, dept, salary, COUNT(*) AS count FROM employee GROUP BY empId
 HAVING COUNT(*) > 1;
 
             JOINS
-================================
-CREATE TABLE DEPARTMENT (
-  deptId INTEGER NULL,
-  deptname TEXT NOT NULL
+=====================================================================================
+CREATE TABLE EMPLOYEE (
+  empId INTEGER PRIMARY KEY,
+  name TEXT NOT NULL,
+  dept TEXT NOT NULL,
+  salary TEXT NOT NULL
 );
-INSERT INTO DEPARTMENT VALUES (0001, 'Sales');
-INSERT INTO DEPARTMENT VALUES (0002, 'Accounting');
+CREATE TABLE DEPT (
+  depId INTEGER PRIMARY KEY,
+  depname TEXT NOT NULL
+  
+);
 
-INNER JOIN
-----------
-SELECT employee.empId, employee.name, department.deptname FROM employee INNER JOIN 
-    department ON employee.empId = DEPARTMENT.deptId;
+-- insert
+INSERT INTO EMPLOYEE VALUES (0001, 'Sai', 'Sales',1000);
+INSERT INTO EMPLOYEE VALUES (0002, 'Ram', 'Accounting',2000);
+INSERT INTO EMPLOYEE VALUES (0003, 'VAsu', 'Marketing',3000);
+INSERT INTO EMPLOYEE VALUES (0004, 'Deva', 'HR',4000);
+INSERT INTO EMPLOYEE VALUES (0005, 'Shiva', 'IT',5000);
+INSERT INTO EMPLOYEE VALUES (0006, 'Shankar', 'Finance',6000);
 
-LEFT JOIN
----------
-SELECT employee.name, department.depTname FROM employee LEFT JOIN department ON 
-    employee.empId = DEPARTMENT.deptId;
+INSERT INTO DEPT VALUES (0001, 'Sales');
+INSERT INTO DEPT VALUES (0002, 'Accounting');
+INSERT INTO DEPT VALUES (0003, 'Marketing');
+INSERT INTO DEPT VALUES (0004, 'HR');
+INSERT INTO DEPT VALUES (0005, 'IT');
+INSERT INTO DEPT VALUES (0006, 'Finance');
+
+
+INNER JOIN:- Returns rows where there is a match in both tables.
+
+SQL> SELECT e.empId, e.name, e.dept, d.depname FROM EMPLOYEE e
+     INNER JOIN DEPT d ON e.dept = d.depname;
+
+LEFT OUTER JOIN:- Returns all rows from the left table (EMPLOYEE), and matched rows from DEPT. If no match, NULL is returned.
+
+SQL> SELECT e.empId, e.name, e.dept, d.depname FROM EMPLOYEE e
+     LEFT JOIN DEPT d ON e.dept = d.depname;
+
+RIGHT JOIN
+Returns all rows from the right table (DEPT), and matched rows from EMPLOYEE.
+
+SQL> SELECT e.empId, e.name, e.dept, d.depname FROM EMPLOYEE e
+     RIGHT JOIN DEPT d ON e.dept = d.depname;
+
+FULL OUTER JOIN (Not directly supported in MySQL)
+You can simulate it using UNION of LEFT JOIN and RIGHT JOIN.
+
+SQL> SELECT e.empId, e.name, e.dept, d.depname FROM EMPLOYEE e 
+     LEFT JOIN DEPT d ON e.dept = d.depname
+     UNION
+     SELECT e.empId, e.name, e.dept, d.depname FROM EMPLOYEE e
+     RIGHT JOIN DEPT d ON e.dept = d.depname;
+CROSS JOIN
+Returns Cartesian product (all combinations).
+
+SQL> SELECT e.name, d.depname FROM EMPLOYEE e
+     CROSS JOIN DEPT d;
+
+
+
 
 
