@@ -1,0 +1,66 @@
+CREATE TABLE EMPLOYEE (
+  empId INTEGER PRIMARY KEY,
+  name TEXT NOT NULL,
+  dept TEXT NOT NULL,
+  salary TEXT NOT NULL
+);
+
+-- insert
+INSERT INTO EMPLOYEE VALUES (0001, 'Sai', 'Sales',1000);
+INSERT INTO EMPLOYEE VALUES (0002, 'Shiva', 'Accounting',2000);
+INSERT INTO EMPLOYEE VALUES (0003, 'Anand', 'admin',3000);
+INSERT INTO EMPLOYEE VALUES (0004, 'Tilak', 'Devloper',4000);
+INSERT INTO EMPLOYEE VALUES (0005, 'Akash', 'admin',5000);
+INSERT INTO EMPLOYEE VALUES (0006, 'Trinath', 'Devloper',6000);
+
+SELECT * FROM EMPLOYEE;
+
+Highest Salary
+SELECT max(salary) from EMPLOYEE;
+Select * from employee where salary=(Select max(salary) from employee);
+
+Highest Salary
+SELECT * FROM EMPLOYEE WHERE salary = (SELECT DISTINCT salary FROM EMPLOYEE ORDER BY salary DESC LIMIT 1 OFFSET 0);
+
+2nd Highest Salary
+SELECT * FROM EMPLOYEE WHERE salary = (SELECT DISTINCT salary FROM EMPLOYEE ORDER BY salary DESC LIMIT 1 OFFSET 1);
+
+Find Top three max salaries
+SELECT * FROM employee ORDER BY salary DESC LIMIT 3;
+
+//Find Top min Bottom three salaries
+SELECT * FROM employee ORDER BY salary ASC LIMIT 3;
+
+//Find number of Emplyoees in EachDepartment
+Select dept,count(*) from EMPLOYEE group By dept;
+
+// Delete data bassed on id
+Delete from EMPLOYEE where empId=0006;
+
+// delete duplicate rows in emp
+Delete from EMPLOYEE where empId not in( select min(empId) from EMPLOYEE group by name);
+
+//To Find out duplica id/rows
+SELECT empId, name, dept, salary, COUNT(*) AS count FROM employee GROUP BY empId, name, dept, salary
+HAVING COUNT(*) > 1;
+
+            JOINS
+================================
+CREATE TABLE DEPARTMENT (
+  deptId INTEGER NULL,
+  deptname TEXT NOT NULL
+);
+INSERT INTO DEPARTMENT VALUES (0001, 'Sales');
+INSERT INTO DEPARTMENT VALUES (0002, 'Accounting');
+
+INNER JOIN
+----------
+SELECT employee.empId, employee.name, department.deptname FROM employee INNER JOIN 
+    department ON employee.empId = DEPARTMENT.deptId;
+
+LEFT JOIN
+---------
+SELECT employee.name, department.depTname FROM employee LEFT JOIN department ON 
+    employee.empId = DEPARTMENT.deptId;
+
+
